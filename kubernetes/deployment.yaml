@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: listener
+  namespace: it-ex-automation
+spec:
+  selector:
+    matchLabels:
+      app: listener
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: listener
+    spec:
+      containers:
+      - name: listener
+        image: artifactory.wdc.com:6633/helper_api:v1
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        kubernetes.io/os: linux
